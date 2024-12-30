@@ -1,7 +1,11 @@
-const Landing = () => {
-    return (
-        <h1 className='text-4xl'>Landing</h1 >
-    )
-}
+import { Hero } from "../components";
 
-export default Landing
+const Landing = () => {
+  return (
+    <>
+      <Hero />
+    </>
+  );
+};
+
+export default Landing;
