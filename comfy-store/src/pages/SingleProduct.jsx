@@ -1,3 +1,4 @@
+import { useState } from "react";
 import customFetch, { formatPrice } from "../utils";
 import { Link, useLoaderData } from "react-router-dom";
 export const loader = async ({ params }) => {
@@ -9,6 +10,7 @@ const SingleProduct = () => {
   const { image, title, price, description, colors, company } =
     product.attributes;
   const dollarAmount = formatPrice(price);
+  const [productColor, setProductColor] = useState(colors[0]);
   return (
     <section>
       {/* BREADCRUMBS */}
@@ -38,6 +40,25 @@ const SingleProduct = () => {
           </h4>
           <p className="mt-3 text-xl">{dollarAmount}</p>
           <p className="mt-6 leading-8">{description}</p>
+          {/* Colors */}
+          <div className="mt-6">
+            <h4 className="text-md capitalize font-medium tracking-wider">
+              colors
+            </h4>
+            <div className="mt-2">
+              {colors.map((color) => {
+                return (
+                  <button
+                    key={color}
+                    style={{ backgroundColor: color }}
+                    type="button"
+                    className={`badge w-6 h-6 mr-2 ${color === productColor && "border-2 border-secondary"}`}
+                    onClick={() => setProductColor(color)}
+                  ></button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
