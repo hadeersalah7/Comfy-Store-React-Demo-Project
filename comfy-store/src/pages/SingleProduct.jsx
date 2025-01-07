@@ -1,5 +1,5 @@
 import { useState } from "react";
-import customFetch, { formatPrice } from "../utils";
+import customFetch, { formatPrice, generateAmountOptions } from "../utils";
 import { Link, useLoaderData } from "react-router-dom";
 export const loader = async ({ params }) => {
   const response = await customFetch(`/products/${params.id}`);
@@ -76,9 +76,7 @@ const SingleProduct = () => {
               value={amount}
               onChange={handleAmountChange}
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
+              {generateAmountOptions(20)}
             </select>
           </div>
           <div className="mt-10">

@@ -16,6 +16,8 @@ import "./App.css";
 // loaders:
 import { loader as landingLoader } from "./pages/Landing";
 import { loader as singleProductLoader } from "./pages/SingleProduct";
+import { loader as productsLoader } from "./pages/Products";
+
 
 // actions:
 
@@ -35,6 +37,8 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
+        errorElement: <ErrorElement />,
+        loader: productsLoader,
       },
       {
         path: "/products/:id",
