@@ -9,4 +9,4 @@ export { default as FeaturedProducts } from "./FeaturedProducts";
 export { default as SectionTitle } from "./SectionTitle";
 export { default as Filters } from "./Filters";
 export { default as PaginationContainer } from "./PaginationContainer";
-export { default as ProjectContainer } from "./ProductsContainer";
+export { default as ProductsContainer } from "./ProductsContainer";
