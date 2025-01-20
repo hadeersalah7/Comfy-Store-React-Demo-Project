@@ -19,12 +19,15 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       const { product } = action.payload;
-      console.log({ product })
-      const item = state.cartItems.find((i) => i.cartID === product.cartID);
+      console.log("product---", product, product.cartID);
+      const item = state.cartItems.find(
+        (i) => i.productId === product.productId
+      );
+      console.log("item---", state.cartItems);
       if (item) {
         item.amount += product.amount;
-        state.cartItems.push(product);
-        console.log("state.cartItems", defaultState.cartItems)
+        console.log("inside if");
+        // state.cartItems.push(product);
       } else {
         state.cartItems.push(product);
       }
@@ -38,17 +41,21 @@ const cartSlice = createSlice({
       return defaultState;
     },
     removeItem: (state, action) => {
-      const { cartID } = action.payload;
-      const product = state.cartItems.find((i) => i.cartID === cartID);
-      state.cartItems = state.cartItems.filter((i) => i.cartID !== cartID);
+      const { productId } = action.payload;
+      const product = state.cartItems.find((i) => i.productId === productId);
+      state.cartItems = state.cartItems.filter(
+        (i) => i.productId !== productId
+      );
+
       state.numItemsInCart -= product.amount;
       state.cartTotal -= product.price * product.amount;
       cartSlice.caseReducers.calcTotals(state);
-      toast.error("Item removed from cart!");
+      toast.error("Item removed from cart");
     },
+
     editItem: (state, action) => {
-      const { cartID, amount } = action.payload;
-      const item = state.cartItems.find((i) => i.cartID === cartID);
+      const { productId, amount } = action.payload;
+      const item = state.cartItems.find((i) => i.productId === productId);
       state.numItemsInCart += amount - item.amount;
       state.cartTotal += item.price * (amount - item.amount);
       item.amount = amount;
@@ -64,6 +71,5 @@ const cartSlice = createSlice({
 });
 
 export const { addItem, clearCart, removeItem, editItem } = cartSlice.actions;
-
 
 export default cartSlice.reducer;
