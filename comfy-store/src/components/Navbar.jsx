@@ -3,28 +3,16 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../features/user/UserSlice";
 
-const themes = {
-  autumn: "lemonade",
-  luxury: "forest",
-};
-const getThemeFromLocalStorage = () => {
-  return localStorage.getItem("theme") || themes.autumn;
-};
+
+
 const Navbar = () => {
-  const [theme, setTheme] = useState(getThemeFromLocalStorage);
-
+  const dispatch = useDispatch()
   const handleChangeTheme = () => {
-    const { autumn, luxury } = themes;
-    const newTheme = theme === autumn ? luxury : autumn;
-    setTheme(newTheme);
+    dispatch(toggleTheme())
   };
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart)
   return (
