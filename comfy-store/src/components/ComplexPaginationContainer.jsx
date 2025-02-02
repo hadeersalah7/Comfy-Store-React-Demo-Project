@@ -24,6 +24,25 @@ const ComplexPaginationContainer = () => {
     }
     const renderPageButtons = () => {
         const pageButtons = []
+        // first page:
+        pageButtons.push(addPageButton({pageNumber: 1, activeClass: page ===1}))
+        if (page !== 1 && page !== pageCount) {
+            pageButtons.push(addPageButton({pageNumber: page, activeClass: true}))
+        }
+        // dots: 
+        if (page > 2) {
+            pageButtons.push(<button className='join-item btn btn-xs sm:btn-md' key='dots-1'>
+                ...
+            </button>)
+        }
+        // dots: 
+        if (page < pageCount - 1) {
+             pageButtons.push(<button className='join-item btn btn-xs sm:btn-md' key='dots-2'>
+                ...
+            </button>)
+        }
+        // last page:
+        pageButtons.push(addPageButton({pageNumber: pageCount, activeClass: page === pageCount}))
         return pageButtons;
     }
     if (pageCount < 2) return null
@@ -31,7 +50,11 @@ const ComplexPaginationContainer = () => {
         <div className="mt-16 flex justify-end">
             <div className="join">
                 <button className="btn btn-xs sm:btn-md join-item"
-                    onClick={() => handlePageChange('prev')}
+                    onClick={() => {
+                        let prevPage = page - 1
+                        if(prevPage < 1) prevPage = pageCount
+                        handlePageChange(prevPage)
+                    }}
                 >Prev</button>
                 {renderPageButtons()}
                 <button className="btn btn-xs sm:btn-md join-item"
